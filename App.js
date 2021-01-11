@@ -13,18 +13,24 @@ import { Button } from "native-base";
 import Axios from "axios";
 import User from './components/User';
 
-const Key = "aslisubhash"
+
 
 
 const App = () => {
-  const [input, setInput] = useState("")
+  const [username, setUsername] = useState("")
   const [details, setDetails] = useState(null)
+  console.log(username);
+
+  const resetform = () =>(
+    setDetails(""),
+    setUsername("")
+  )
 
   const fetchDetails = async () => {
     try {
-     const {data} = await Axios.get(`https://api.github.com/users/${Key}`)
+     const {data} = await Axios.get(`https://api.github.com/users/${username}`)
      const details = data;
-     console.log(details);
+     console.log(data);
      setDetails(details)
      
     } catch (error) {
@@ -38,23 +44,40 @@ const App = () => {
    if (!details) {
      return (
        <View style={styles.container}>
-         <Text>
-           Loading....
-         </Text>
+          <View style={styles.inputContainer}>
+        <TextInput
+        value={(username).toString()}
+        onChangeText={(username) =>
+          setUsername(username)}
+        style={styles.inputtext}
+        placeholder="Username"
+        />
+      </View>
+         <Button
+          
+          block
+          onPress={()=>fetchDetails()}
+          style={{width:"90%", alignSelf:"center", marginTop: 30}}
+          >
+            <Text
+            style= {styles.text}
+            >Find User</Text>
+          </Button>
        </View>
      )
    } 
    else {
     return (
-      <View>
+      <View style={styles.container}>
         <View>
           <User details={details}/>
-          <Button
-          rounded 
+          <Button block success
           style={styles.button}
-          onPress={()=>fetchDetails()}
+          onPress={()=>resetform()}
           >
-            <Text>New User</Text>
+            <Text style={styles.text}>
+              Find New User
+            </Text>
           </Button>
         </View>
       </View>
@@ -76,7 +99,20 @@ const styles = StyleSheet.create({
   button:{
     marginTop: 30,
     paddingHorizontal: 30,
-    alignSelf:"center"
+    alignSelf:"center",
+    
 
+  },
+  text: {
+    color: '#FFF',
+    fontSize: 25,
+  
+  },
+  inputtext: {
+    color: '#FFF',
+    fontSize: 25,
+    borderBottomWidth: 1,
+    borderColor: "#FFF"
+  
   }
 })

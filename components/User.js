@@ -21,6 +21,15 @@ const User = ({details}) => {
                 style={styles.image}
                 />
             </CardItem>
+            <CardItem cardBody style={styles.cardItem}>
+              <H1>{details.name}</H1>
+            </CardItem>
+            <CardItem cardBody style={styles.cardItem}>
+              <Text style={styles.text}>
+                Followers: {details.followers}
+              </Text>
+            </CardItem>
+
         </Card>
     )
 }
@@ -29,16 +38,14 @@ export default User;
 
 const styles = StyleSheet.create({
     card: {
-      width: '90%',
-      justifyContent: 'flex-start',
+      
+      alignSelf:"center",
       alignItems: 'center',
       backgroundColor: '#4f8a8b',
-      borderColor: '#4f8a8b',
-      marginTop:50,
-      borderWidth: 2,
     },
     cardItem: {
       backgroundColor: '#4f8a8b',
+      padding: 20
     },
     image: {
       width: 150,
@@ -50,7 +57,10 @@ const styles = StyleSheet.create({
       marginTop: -50,
     },
     text: {
-      color: '#000',
+      color: '#FFF',
+      fontSize: 25,
+      paddingTop: 20,
+      
     },
   });
   
